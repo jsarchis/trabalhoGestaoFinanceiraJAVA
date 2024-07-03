@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" layout:decorate="~{template.html}" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Quem Somos</title>
+</head>
+<body>
+<section layout:fragment="body">
+    <div class="container mt-5" sec:authorize="not isAuthenticated()">
+        <h1 class="text-center mb-4">Quem Somos</h1>
+
+        <h2 class="text-center mb-4">Nossa Missão</h2>
+        <p class="lead text-center">No Finança Inteligente, nossa missão é capacitar indivíduos a alcançar a liberdade financeira. Acreditamos que, com as ferramentas e orientações certas, qualquer pessoa pode transformar seus sonhos financeiros em realidade.</p>
+
+        <h2 class="text-center mt-5 mb-3">Nossos Valores</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Transparência: Acreditamos na importância da clareza e honestidade em todas as nossas interações e serviços.</li>
+            <li class="list-group-item">Educação: Promovemos o conhecimento financeiro para ajudar nossos usuários a tomar decisões informadas.</li>
+            <li class="list-group-item">Inovação: Estamos constantemente buscando novas maneiras de melhorar nossos serviços e oferecer ferramentas avançadas para gestão financeira.</li>
+            <li class="list-group-item">Acessibilidade: Queremos que todos tenham acesso às melhores práticas de gestão financeira, independentemente de sua situação econômica.</li>
+        </ul>
+
+        <h2 class="text-center mt-5 mb-3">Nossa Equipe</h2>
+        <p class="lead text-center">Nossa equipe é composta por especialistas em finanças, desenvolvedores de software, e profissionais dedicados ao atendimento ao cliente. Juntos, trabalhamos para oferecer a você uma experiência excepcional e resultados concretos.</p>
+
+        <h2 class="text-center mt-5 mb-3">Junte-se a Nós</h2>
+        <p class="lead text-center">Estamos aqui para ajudar você a organizar suas finanças, alcançar suas metas e viver uma vida financeira mais próspera. Junte-se à nossa comunidade e descubra como o Finança Inteligente pode transformar sua vida.</p>
+    </div>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADM')">
+        <h2>Bem vindo </h2>
+    </div>
+
+</section>
+</body>
+<th:block layout:fragment="script">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+</th:block>
+</html>

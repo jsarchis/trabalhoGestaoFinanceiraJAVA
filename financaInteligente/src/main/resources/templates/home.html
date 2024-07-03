@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" layout:decorate="~{template.html}" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Home</title>
+</head>
+<body>
+
+<section layout:fragment="body">
+    <div class="container mt-5" sec:authorize="not isAuthenticated()">
+        <h1 class="text-center mb-4">Bem-vindo ao Finança Inteligente</h1>
+        <p class="lead text-center">Organize seus gastos, gerencie seus ganhos e transforme suas finanças com facilidade. Nossa plataforma foi criada especialmente para Poupadores como você, que buscam uma maneira simples e eficaz de controlar suas finanças pessoais.</p>
+
+        <h2 class="text-center mt-5 mb-3">O que oferecemos:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestão Financeira Simplificada</h5>
+                        <p class="card-text">Registre seus gastos e receitas de forma intuitiva e mantenha suas finanças sempre sob controle.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Conexão com Economistas Profissionais</h5>
+                        <p class="card-text">Tenha acesso a consultoria financeira personalizada através de nossa rede de economistas qualificados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gráficos intuitivos</h5>
+                        <p class="card-text">Seus gastos, receitas e metas de forma visual e de fácil interpretação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center"><a href="/user/new">Comece hoje</a> mesmo sua jornada para uma vida financeira mais organizada e próspera. Junte-se a nós no <strong>Finança Inteligente</strong> e transforme seus sonhos em realidade financeira.</p>
+    </div>
+
+</section>
+</body>
+<th:block layout:fragment="script">
+
+</th:block>
+</html>

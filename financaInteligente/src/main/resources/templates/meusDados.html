@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br" layout:decorate="~{template.html}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>Meus Dados</title>
+</head>
+<body>
+
+<section layout:fragment="body" class="container mt-5">
+    <form th:action="@{/poup}" method="post" th:object="${poupador}" class="mb-5" id="meusdadosForm">
+        <div class="container">
+            <!-- bloco com dados do poupador -->
+            <div class="card ">
+                <div class="card-header bg-info">
+                    <h5 class="text-center">Dados do Poupador</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/saveUser}" th:object="${poupador}" method="post" id="poupadorForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="rendaFixa">Renda Fixa:</label>
+                                <input type="text" id="rendaFixa" class="form-control " th:field="*{rendaFixa}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="despesasFixas">Despesa Fixa:</label>
+                                <input type="text" id="despesasFixas" class="form-control " th:field="*{despesasFixas}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="metaDePoupanca">Meta de Poupança:</label>
+                                <input type="text" id="metaDePoupanca" class="form-control" th:field="*{metaDePoupanca}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="ganhoMes">Renda Total Mes:</label>
+                                <input type="text" id="ganhoMes" class="form-control " th:field="*{ganhoMes}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="gastoMes">Gasto Total Mes:</label>
+                                <input type="text" id="gastoMes" class="form-control " th:field="*{gastoMes}">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-2">Salvar</button>
+                        </div>
+                    </form>
+                    <form th:action="@{/poup/fechaMes}" method="post">
+                        <button class="btn btn-outline-danger">Fechar Mes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- alteraçoes nos valores -->
+            <div class="card" style="width:550px">
+                <div class="card-header">
+                    <h6 class="text-center">Alterações</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-4" style="width:250px">
+                            <label for="addGanhoMes">Adicionar Receita Flutuante:</label>
+                            <input type="text" id="addGanhoMes" class="form-control">
+                            <button type="button" class="btn btn-secundary mt-1 bg-success" onclick="addValue('ganhoMes', 'addGanhoMes')">Adicionar</button>
+                        </div>
+                        <div class="form-group col-md-4" style="width:250px">
+                            <label for="addGastoMes">Adicionar Despesa Flutuante:</label>
+                            <input type="text" id="addGastoMes" class="form-control">
+                            <button type="button" class="btn btn-secundary mt-1 bg-warning" onclick="addValue('gastoMes', 'addGastoMes')">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4" style="width:250px">
+                            <label for="altRendaFixa">Alterar Renda Fixa:</label>
+                            <input type="text" id="altRendaFixa" class="form-control">
+                            <button type="button" class="btn btn-secundary mt-2 bg-success" onclick="altValue('rendaFixa', 'altRendaFixa', 'ganhoMes')">Alterar</button>
+                        </div>
+                        <div class="form-group col-md-4" style="width:250px">
+                            <label for="altDespMes">Alterar Despesa Fixa:</label>
+                            <input type="text" id="altDespMes" class="form-control">
+                            <button type="button" class="btn btn-secundary mt-2 bg-warning" onclick="altValue('despesasFixas', 'altDespMes', 'gastoMes')">Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var ganhoMes = parseFloat(document.getElementById('ganhoMes').value);
+            var rendaFixa = parseFloat(document.getElementById('rendaFixa').value);
+            var gastoMes = parseFloat(document.getElementById('gastoMes').value);
+            var despesasFixa = parseFloat(document.getElementById('despesasFixas').value);
+
+
+            // if(rendaFixa !== 0 ){
+                document.getElementById('rendaFixa').setAttribute('disabled','true');
+            // }
+            // if(despesasFixa !== 0){
+                document.getElementById('despesasFixas').setAttribute('disabled', 'true');
+                document.getElementById('ganhoMes').setAttribute('disabled', 'true');
+            document.getElementById('gastoMes').setAttribute('disabled', 'true');
+            // }
+            if(ganhoMes === 0){
+                document.getElementById('ganhoMes').value = rendaFixa;
+            }
+            if(gastoMes === 0){
+                document.getElementById('gastoMes').value = despesasFixa;
+            }
+
+        });
+
+        function addValue(valorAlt , valorSomado){
+            var valorAlt = document.getElementById(valorAlt);
+            var valorSomado = document.getElementById(valorSomado);
+            var v1 = parseFloat(valorAlt.value);
+            var v2 = parseFloat(valorSomado.value);
+
+            valorAlt.value = v1 + v2;
+            valorSomado.value = "";
+        }
+
+        function altValue(oldValor , newValor, valorMes){
+            var oldValor = document.getElementById(oldValor);
+            var newValor = document.getElementById(newValor);
+            var valorMes = document.getElementById(valorMes);
+            var v1 = parseFloat(oldValor.value);
+            var v2 = parseFloat(newValor.value);
+            var v3 = parseFloat(valorMes.value);
+            valorMes.value = v3 + v2 - v1;
+            oldValor.value = v2;
+            newValor.value = "";
+        }
+
+        document.getElementById('meusdadosForm').addEventListener('submit', function (){
+            document.getElementById('rendaFixa').removeAttribute('disabled');
+            document.getElementById('despesasFixas').removeAttribute('disabled')
+            document.getElementById('ganhoMes').removeAttribute('disabled')
+            document.getElementById('gastoMes').removeAttribute('disabled');
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+</th:block>
+</body>
+</html>
